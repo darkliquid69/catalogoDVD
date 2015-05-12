@@ -1,4 +1,4 @@
-﻿namespace GUI_win32
+﻿namespace App_CatalogoCD
 {
     partial class Gui2
     {
