@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="App_CatalogoCD.Catalogo">
+    <Position X="3.25" Y="0.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>IAAgCAAAAAAAABAIAAAAJAAAIgAAAAEAAAAIAAAAAAA=</HashCode>
+      <FileName>Catalogo.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="dao" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Field Name="_catalogoDVD" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="App_CatalogoCD.dvd">
+    <Position X="7.75" Y="1" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Properties" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABQQQBEEEAAQiAAAQgQAAEAYAAAAAQAGAAFA=</HashCode>
+      <FileName>dvd.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="App_CatalogoCD.Program">
+    <Position X="0.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="c" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="App_CatalogoCD.DAOdvd">
+    <Position X="7.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAAAAAgAAAAAAAAAAAJAAgAAIAAAAAAAAAAE=</HashCode>
+      <FileName>DAOdvd.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
