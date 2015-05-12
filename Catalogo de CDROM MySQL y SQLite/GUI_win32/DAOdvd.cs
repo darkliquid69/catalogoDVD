@@ -9,9 +9,9 @@ namespace App_CatalogoCD
     public class DAOdvd
     {
 		
-		static string IP = "localhost";
+		static string IP = "192.168.0.128";
 		static string BD = "catalogo";
-		static string USER = "root";
+		static string USER = "usuario";
 		static string PWD = "123";
         public MySqlConnection conexion;
 

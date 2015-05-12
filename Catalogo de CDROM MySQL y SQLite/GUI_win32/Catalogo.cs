@@ -12,8 +12,8 @@ namespace App_CatalogoCD
 		static public ushort contadorParaCodigo = 100;
 
         List<dvd> _catalogoDVD = new List<dvd>();
-        DAOdvd dao = new DAOdvd();
-		//DAOdvdSQLite dao = new DAOdvdSQLite();
+        //DAOdvd dao = new DAOdvd();
+		DAOdvdSQLite dao = new DAOdvdSQLite();
 
         /// <summary>
         /// Constructor con acceso a la BD o en modo pruebas con datos ficticios
@@ -74,7 +74,16 @@ namespace App_CatalogoCD
                     (ushort)rnd.Next(1900, 2016));
 
             _catalogoDVD.Add(unDVD);
-            Console.WriteLine("Resultado de la inserción: " + dao.Insertar(unDVD));
+            try
+            {
+                dao.Insertar(unDVD);
+                Console.WriteLine("Resultado de la inserción: " + dao.Insertar(unDVD));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Resultado de la inserción: " + ex.Data);
+            }
+
         }
 
         public void LeerDVD()
@@ -142,7 +151,7 @@ namespace App_CatalogoCD
 
 		public void FiltrarPorPais() 
 		{
-			_catalogoDVD = dao.SeleccionarPorPais("US");
+			//_catalogoDVD = dao.SeleccionarPorPais("US");
 		}
 
 		public override string ToString ()
