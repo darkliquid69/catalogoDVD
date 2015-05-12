@@ -19,9 +19,14 @@ namespace GUI_win32
 
         private void Gui2_Load(object sender, EventArgs e)
         {
-            this.groupBox_Op.Text = "Operaciones";
-            this.groupBox_Listado.Text = "Listado";
-            string[] nombres = new string[]{
+			Inicializador ( );
+        }
+
+		private void Inicializador ( )
+		{
+			this.groupBox_Op.Text = "Listado";
+			this.groupBox_Listado.Text = "Operaciones";
+			string[] nombres = new string [ ]{
                 "Leer todos los Dvd's",
                 "Volcar todos los Dvd's en XML",
                 "Añadir un dvd con datos al azar",
@@ -29,15 +34,15 @@ namespace GUI_win32
                 "Modificar un dvd",
                 "Volcar xml a fichero",
                 "Listar Dvd's por país",
-                "(q) fin"
+                "Salir"
             };
 
-            int i = 0;
-            foreach (var item in this.flowLayoutPanel1.Controls)
-            {
-                if (item is Button)
-                    ((Button)item).Text = nombres[i++];
-            }
-        }
+			int i = 0;
+			foreach ( var item in this.flowLayoutPanel1.Controls )
+			{
+				if ( item is Button )
+					( ( Button ) item ).Text = nombres [ i++ ];
+			}
+		}
     }
 }
