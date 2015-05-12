@@ -3,7 +3,8 @@ using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-//using Mono.Data.Sqlite;
+//using Mono.Data.SQLite;
+using System.Data.SQLite;
 
 namespace App_CatalogoCD
 {
@@ -12,18 +13,18 @@ namespace App_CatalogoCD
 
         static string BD = "catalogo.db";
 
-        public SqliteConnection conexion;
+        public SQLiteConnection conexion;
 
         public bool Conectar()
         {
             string cadenaConexion = "Data Source=" + BD + ";Version=3;" + "FailIfMissing=true;";
             try
             {
-                conexion = new SqliteConnection(cadenaConexion);
+                conexion = new SQLiteConnection(cadenaConexion);
                 conexion.Open();
                 return true;
             }
-            catch (SqliteException ex)
+            catch (SQLiteException ex)
             {
                 throw new Exception("Error de conexión: " + ex.Data);
             }
@@ -35,7 +36,7 @@ namespace App_CatalogoCD
             {
                 conexion.Close();
             }
-            catch (SqliteException)
+            catch (SQLiteException)
             {
                 throw;
             }
@@ -53,12 +54,12 @@ namespace App_CatalogoCD
                 unDVD.Precio.ToString().Replace(',', '.') + ","
                 + unDVD.Anio + ")";
                 //Console.WriteLine(sql);
-                SqliteCommand cmd = new SqliteCommand(sql, conexion);
+                SQLiteCommand cmd = new SQLiteCommand(sql, conexion);
                 try
                 {
                     return cmd.ExecuteNonQuery();
                 }
-                catch (SqliteException ex)
+                catch (SQLiteException ex)
                 {
                     throw;
                 }
@@ -81,10 +82,10 @@ namespace App_CatalogoCD
             else
                 sql = "select codigo,titulo,artista,pais,compania,precio,anio from dvd where codigo = " + codigo;
 
-            SqliteCommand cmd = new SqliteCommand(sql, conexion);
+            SQLiteCommand cmd = new SQLiteCommand(sql, conexion);
             // construimos un datareader y ejecutamos el comando sql
 
-            SqliteDataReader lector = cmd.ExecuteReader();
+            SQLiteDataReader lector = cmd.ExecuteReader();
             //recuperamos los datos y volcamos en el resultado a devolver
 
             while (lector.Read())
@@ -114,7 +115,7 @@ namespace App_CatalogoCD
             if (codigo != null)
             {
                 sql = "delete from dvd where codigo = " + codigo;
-                SqliteCommand cmd = new SqliteCommand(sql, conexion);
+                SQLiteCommand cmd = new SQLiteCommand(sql, conexion);
                 return cmd.ExecuteNonQuery();
             }
             else
@@ -135,13 +136,13 @@ namespace App_CatalogoCD
                 "anio='" + unDVD.Anio + "' " +
                 "where codigo = " + unDVD.Codigo;
                 //Console.WriteLine (sql);
-                SqliteCommand cmd = new SqliteCommand(sql, conexion);
+                SQLiteCommand cmd = new SQLiteCommand(sql, conexion);
                 try
                 {
                     cmd.ExecuteNonQuery();
                     return 1;
                 }
-                catch (SqliteException)
+                catch (SQLiteException)
                 {
                     return 0;
                 }
