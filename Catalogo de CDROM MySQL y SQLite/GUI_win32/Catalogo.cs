@@ -24,16 +24,16 @@ namespace App_CatalogoCD
 			try
 			{
 				dao.Conectar ( );
-					//Console.WriteLine ( "Conexión con éxito a la BD" );
+				//Console.WriteLine ( "Conexión con éxito a la BD" );
 				//else
-					//Console.WriteLine ( "No se puede conectar a la BD" );
+				//Console.WriteLine ( "No se puede conectar a la BD" );
 				this.LeerDVD ( );
 			}
 			catch ( Exception e )
 			{
 				//Console.WriteLine ( "ERROR: " + e.Message );
 			}
-			
+
 		}
 
 		public Catalogo ( int n )

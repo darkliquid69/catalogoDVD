@@ -35,7 +35,7 @@ namespace App_CatalogoCD
 		private void Gui2_Load ( object sender, EventArgs e )
 		{
 			Inicializador ( );
-			
+
 		}
 
 		private void Inicializador ( )
@@ -108,12 +108,12 @@ namespace App_CatalogoCD
 			MessageBox.Show ( this, c.Xml );
 		}
 
-		private void ListarPorPais()
+		private void ListarPorPais ( )
 		{
 			this.c.FiltrarPorPais ( );
 		}
 
-		private void LeerTodos()
+		private void LeerTodos ( )
 		{
 			this.listBox1.Items.Clear ( );
 			this.c.LeerDVD ( );
