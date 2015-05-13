@@ -9,11 +9,20 @@ namespace App_CatalogoCD
 	/// </summary>
 	class Catalogo
 	{
+        public delegate void Mensajero(string texto);
+        public event Mensajero Enviado; 
+
 		static public ushort contadorParaCodigo = 100;
 
 		List<dvd> _catalogoDVD = new List<dvd> ( );
 		//DAOdvd dao = new DAOdvd();
 		DAOdvdSQLite dao = new DAOdvdSQLite ( );
+
+        public void OnEnviado(string texto)
+        {
+            if (this.Enviado != null)
+                this.Enviado(texto);
+        }
 
 		/// <summary>
 		/// Constructor con acceso a la BD o en modo pruebas con datos ficticios
@@ -23,17 +32,16 @@ namespace App_CatalogoCD
 		{
 			try
 			{
-				dao.Conectar ( );
-				//Console.WriteLine ( "Conexión con éxito a la BD" );
-				//else
-				//Console.WriteLine ( "No se puede conectar a la BD" );
+				if (dao.Conectar ( ))
+				    OnEnviado ( "Conexión con éxito a la BD" );
+				else
+				    OnEnviado ( "No se puede conectar a la BD" );
 				this.LeerDVD ( );
 			}
 			catch ( Exception e )
 			{
-				//Console.WriteLine ( "ERROR: " + e.Message );
+				OnEnviado ( "ERROR: " + e.Message );
 			}
-
 		}
 
 		public Catalogo ( int n )
@@ -78,11 +86,11 @@ namespace App_CatalogoCD
 			try
 			{
 				dao.Insertar ( unDVD );
-				Console.WriteLine ( "Resultado de la inserción: " + dao.Insertar ( unDVD ) );
+				OnEnviado ( "Resultado de la inserción: " + dao.Insertar ( unDVD ) );
 			}
 			catch ( Exception ex )
 			{
-				Console.WriteLine ( "Resultado de la inserción: " + ex.Data );
+				OnEnviado ( "Resultado de la inserción: " + ex.Data );
 			}
 
 		}
@@ -145,9 +153,9 @@ namespace App_CatalogoCD
 			StreamWriter sw1 = new StreamWriter ( fs1 );
 			Console.SetOut ( sw1 );
 			// Esto se escribirá en el fichero
-			Console.WriteLine ( this.Xml );
+			//OnEnviado ( this.Xml );
 			Console.SetOut ( tmp );    // Reestablezco la salida estandar
-			Console.WriteLine ( @"Se ha creado el fichero: " + ruta );
+			OnEnviado ( @"Se ha creado el fichero: " + ruta );
 			sw1.Close ( );
 		}
 

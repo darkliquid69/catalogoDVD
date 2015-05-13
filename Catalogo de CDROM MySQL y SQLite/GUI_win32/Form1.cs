@@ -30,6 +30,7 @@ namespace App_CatalogoCD
 		{
 			InitializeComponent ( );
 			this.c = new Catalogo ( );
+			this.c.Enviado += c_Enviado;
 		}
 
 		private void Gui2_Load ( object sender, EventArgs e )
@@ -73,8 +74,14 @@ namespace App_CatalogoCD
 			this.button5.Tag	= 5;
 			this.button6.Tag	= 6;
 			this.button7.Tag	= 7;
-			this.button8.Tag	= 8;
+			this.button8.Tag	= 8;            
 		}
+
+        void c_Enviado(string texto)
+        {
+            this.richTextBox1.AppendText("["+DateTime.Now.ToShortTimeString()+"]"+
+                texto);
+        }
 
 
 		///METODOS DE ANTIGUA UI:
