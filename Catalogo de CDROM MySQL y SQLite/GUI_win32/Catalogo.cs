@@ -9,38 +9,59 @@ namespace App_CatalogoCD
 	/// </summary>
 	class Catalogo
 	{
-        public delegate void Mensajero(string texto);
-        public event Mensajero Enviado; 
-
+		public delegate void Mensajero ( string texto );
+		public event Mensajero Enviado;
+		private string _estadoInicial;
+		private bool _conectado;
 		static public ushort contadorParaCodigo = 100;
 
 		List<dvd> _catalogoDVD = new List<dvd> ( );
 		//DAOdvd dao = new DAOdvd();
 		DAOdvdSQLite dao = new DAOdvdSQLite ( );
 
-        public void OnEnviado(string texto)
-        {
-            if (this.Enviado != null)
-                this.Enviado(texto);
-        }
+		public void OnEnviado ( string texto )
+		{
+			if ( this.Enviado != null )
+				this.Enviado ( texto );
+		}
 
 		/// <summary>
-		/// Constructor con acceso a la BD o en modo pruebas con datos ficticios
+		/// Inicializa una instancia de catálogo
 		/// </summary>
 		/// <param name="tipo"></param>
 		public Catalogo ( )
 		{
+			_conectado = false;
+		}
+
+		public void Conectar ( )
+		{
 			try
 			{
-				if (dao.Conectar ( ))
-				    OnEnviado ( "Conexión con éxito a la BD" );
+				if ( _conectado )
+				{
+					_estadoInicial = "Ya existe una conexión abierta a la Base de datos!";
+					return;
+				}
+				if ( dao.Conectar ( ) )
+				{
+					this._estadoInicial = "Conexión con éxito a la BD";
+					_conectado = true;
+				}
 				else
-				    OnEnviado ( "No se puede conectar a la BD" );
+				{
+					this._estadoInicial = "No se puede conectar a la BD";
+					return;
+				}
 				this.LeerDVD ( );
 			}
 			catch ( Exception e )
 			{
-				OnEnviado ( "ERROR: " + e.Message );
+				this._estadoInicial =  "ERROR: " + e.Message;
+			}
+			finally
+			{
+				this.OnEnviado ( this._estadoInicial );
 			}
 		}
 
@@ -71,7 +92,7 @@ namespace App_CatalogoCD
 			}
 		}
 
-		public void AddEntrada ( string i )
+		public int AddEntrada ( string i )
 		{
 			Random rnd = new Random ( );
 			dvd unDVD = new dvd ( ushort.Parse ( i ),
@@ -83,21 +104,23 @@ namespace App_CatalogoCD
 					( ushort ) rnd.Next ( 1900, 2016 ) );
 
 			_catalogoDVD.Add ( unDVD );
+			int res = -1;
 			try
 			{
-				dao.Insertar ( unDVD );
-				OnEnviado ( "Resultado de la inserción: " + dao.Insertar ( unDVD ) );
+				res = dao.Insertar ( unDVD );
 			}
 			catch ( Exception ex )
 			{
 				OnEnviado ( "Resultado de la inserción: " + ex.Data );
 			}
-
+			return res;
 		}
 
 		public void LeerDVD ( )
 		{
-			_catalogoDVD = dao.Seleccionar ( null );
+			if ( _conectado )
+				_catalogoDVD = dao.Seleccionar ( null );
+			else this.OnEnviado ( "ERROR: No hay conexión a la Base de Datos!" );
 		}
 		/// <summary>
 		/// Obtiene de la tabla el DVD con el codigo dado
@@ -145,7 +168,7 @@ namespace App_CatalogoCD
 		{
 			// Manda a fichero (c:/salida.xml), la lista de los CDROM en formato XML
 			// Creo un flujo hacia el fichero
-			String ruta = "c:\\basura\\salida.xml";
+			String ruta = "../../Dependencias/salida.xml";
 			FileStream fs1 = new FileStream ( @ruta, FileMode.Create );
 			// Guardo el dispositivo de salida (pantalla) en tmp
 			TextWriter tmp = Console.Out;
@@ -153,9 +176,9 @@ namespace App_CatalogoCD
 			StreamWriter sw1 = new StreamWriter ( fs1 );
 			Console.SetOut ( sw1 );
 			// Esto se escribirá en el fichero
-			//OnEnviado ( this.Xml );
+			Console.WriteLine ( this.Xml );
 			Console.SetOut ( tmp );    // Reestablezco la salida estandar
-			OnEnviado ( @"Se ha creado el fichero: " + ruta );
+			OnEnviado ( @"Se ha creado el fichero: " + Path.GetFullPath ( ruta ) );
 			sw1.Close ( );
 		}
 
