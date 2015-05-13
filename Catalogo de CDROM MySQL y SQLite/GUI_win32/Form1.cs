@@ -18,7 +18,7 @@ namespace App_CatalogoCD
 			XML_STRING		= 2,
 			ANADIR_1		= 3,
 			BORRAR			= 4,
-			MOD				= 5,
+			MOD	            = 5,
 			VOLCAR_XML		= 6,
 			POR_PAIS		= 7,
 			SALIR			= 8
@@ -42,6 +42,8 @@ namespace App_CatalogoCD
 		{
 			this.groupBox_Op.Text = "Listado";
 			this.groupBox_Listado.Text = "Operaciones";
+            this.groupBox_Visor.Text = "Visor de Eventos";
+
 			string[] nombres = new string [ ]{
                 "Leer todos los Dvd's",
                 "Volcar todos los Dvd's en XML",

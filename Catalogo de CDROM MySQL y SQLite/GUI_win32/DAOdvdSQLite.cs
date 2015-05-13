@@ -11,7 +11,7 @@ namespace App_CatalogoCD
 	public class DAOdvdSQLite
 	{
 
-		static string BD = "catalogo.db";
+		static string BD = @"../../Dependencias/catalogo.db";
 
 		public SQLiteConnection conexion;
 
