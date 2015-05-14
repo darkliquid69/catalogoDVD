@@ -36,6 +36,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -50,6 +52,12 @@
     <Compile Include="Catalogo.cs" />
     <Compile Include="DAOdvd.cs" />
     <Compile Include="dvd.cs" />
+    <Compile Include="gui1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui1.Designer.cs">
+      <DependentUpon>gui1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UI.cs" />
@@ -57,6 +65,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="DiagramaDeClases.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="gui1.resx">
+      <DependentUpon>gui1.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
